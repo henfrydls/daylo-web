@@ -21,7 +21,7 @@ site/                 Document root, served as-is
 deploy/
   config.env          Domain, paths, Umami site id
   build.sh            Refresh site/demo and the version from the latest release
-  server-setup.sh     One-time server setup: clone, nginx site, certificate
+  server-setup.sh     One-time server setup: clone, publish, nginx site
   pull.sh             Publish the latest main on the server
   nginx/              nginx site configuration
 ```
@@ -37,6 +37,10 @@ This downloads the `daylo-web-demo` artifact of the release's workflow run, chec
 ```bash
 sudo /opt/daylo-web/deploy/pull.sh
 ```
+
+## First deployment
+
+On the server, as root: clone the repo to `/opt/daylo-web` and run `deploy/server-setup.sh`. It publishes `site/` to `/var/www/daylo`, installs the nginx site (TLS from the server's existing wildcard certificate) and checks that the page, the policy and the demo answer 200.
 
 ## Analytics
 
