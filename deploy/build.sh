@@ -33,21 +33,29 @@ gh run download "$RUN_ID" -R "$APP_REPO" -n "$DEMO_ARTIFACT" -D "$work/demo"
 
 # The app must ship with no analytics of its own. CI already checks the source;
 # this checks the exact bytes we are about to publish.
-if hits=$(grep -rIlE 'analytics\.henfrydls\.com|umami|plausible\.io|googletagmanager|google-analytics|sentry\.io|posthog|mixpanel|hotjar' "$work/demo"); then
-  echo "analytics reference found in the demo build:" >&2; echo "$hits" >&2; exit 1
-fi
+pattern='analytics\.henfrydls\.com|umami|plausible\.io|googletagmanager|google-analytics|sentry\.io|posthog|mixpanel|hotjar'
+set +e
+hits=$(grep -rIlE "$pattern" "$work/demo"); status=$?
+set -e
+case $status in
+  0) echo "analytics reference found in the demo build:" >&2; echo "$hits" >&2; exit 1 ;;
+  1) ;;  # nothing found: the only acceptable outcome
+  *) echo "grep failed while scanning the demo (exit $status); refusing to publish" >&2; exit 1 ;;
+esac
 
 # Only the demo served from this site carries Umami and the demo notice.
-python3 - "$work/demo/index.html" "$UMAMI_HOST" "$UMAMI_WEBSITE_ID" <<'PY'
+python3 - "$work/demo/index.html" "$UMAMI_HOST" "$UMAMI_WEBSITE_ID" "$DOMAIN" <<'PY'
 import sys
-path, host, site_id = sys.argv[1:]
+path, host, site_id, domain = sys.argv[1:]
 html = open(path, encoding="utf-8").read()
-umami = f'    <script defer src="{host}/script.js" data-website-id="{site_id}"></script>\n  </head>'
+# data-domains keeps local copies and forks from reporting into the real site's numbers.
+umami = f'    <script defer src="{host}/script.js" data-website-id="{site_id}" data-domains="{domain}"></script>\n  </head>'
 notice = '''  <body>
     <div role="note" style="background:#ecfdf5;color:#064e3b;border-bottom:1px solid #a7f3d0;padding:.6rem 1rem;font:500 .875rem/1.45 system-ui,sans-serif;text-align:center">
       This is a demo. Anything you add here stays in this browser only and will not appear in the app when you install it.
       Want to keep it? Use <b>Export Data</b> here and <b>Import Data</b> in the app.
       <a href="/" style="color:#047857;text-decoration:underline;margin-left:.35rem">Get the app</a>
+      <span aria-hidden="true" style="margin:0 .35rem;color:#6ee7b7">·</span><a href="/privacy/" style="color:#047857;text-decoration:underline">Privacy</a>
     </div>'''
 assert html.count("  </head>") == 1 and html.count("  <body>") == 1, "unexpected index.html layout"
 html = html.replace("  </head>", umami, 1).replace("  <body>", notice, 1)
