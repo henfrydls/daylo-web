@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Daylo. See your whole year at a glance.</title>
+<meta name="description" content="Daylo is a simple habit tracker. Tap once a day for each habit you keep, and your year fills in with color. Free, open source, no account needed. Windows, Mac, Linux and Android.">
+<link rel="canonical" href="https://daylo.henfrydls.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Daylo. See your whole year at a glance.">
+<meta property="og:description" content="A simple habit tracker. Tap once a day and your year fills in with color. Free, open source, your data stays on your device.">
+<meta property="og:image" content="https://daylo.henfrydls.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Daylo year view: month heatmaps filling in with green, next to your activities and statistics">
+<meta property="og:url" content="https://daylo.henfrydls.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://daylo.henfrydls.com/assets/og.png">
+<meta name="theme-color" content="#10b981">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<!-- Deployment fills in the Umami site id, the app version and site/demo/: see deploy/build.sh. -->
+<script defer src="https://analytics.henfrydls.com/script.js" data-website-id="e5fcf739-d6b1-4c48-9645-55b4fd90b50a" data-domains="daylo.henfrydls.com"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Daylo",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Windows, macOS, Linux, Android",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "license": "https://opensource.org/licenses/MIT",
+  "downloadUrl": "https://github.com/henfrydls/daylo/releases/latest",
+  "softwareVersion": "1.1.1",
+  "url": "https://daylo.henfrydls.com/",
+  "screenshot": "https://daylo.henfrydls.com/assets/daylo-year-view.png",
+  "author": { "@type": "Person", "name": "Henfry De Los Santos", "url": "https://henfrydls.com" },
+  "publisher": { "@type": "Organization", "name": "DLSLabs" },
+  "description": "A simple habit tracker with a color-coded year calendar. Free and open source. No account, no cloud: your data stays on your device."
+}
+</script>
+
+<style>
+  /* Tokens taken from the app (src/index.css): the site and the app are one thing. Always light. */
+  :root{
+    --bg:#ffffff; --bg2:#f9fafb; --bg3:#f3f4f6;
+    --text:#111827; --text2:#6b7280; --text3:#9ca3af;
+    --border:#e5e7eb;
+    --l0:#f3f4f6; --l1:#d1fae5; --l2:#6ee7b7; --l3:#34d399; --l4:#10b981;
+    --accent:#10b981; --accent-hover:#059669;
+    --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --shell:min(1120px,100% - 2.5rem);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;height:auto;display:block} /* without height:auto the width/height attributes fix the height and max-width only shrinks the width: the screenshot renders squashed (348x1688 instead of 348x753 at 390) */
+  figure{margin:0} /* the UA default is 40px per side: inside the hero grid that added 80px to the minimum track and overflowed by 53px at 390 */
+  .hero>*{min-width:0} /* grid items may not demand more width than their track */
+  a{color:var(--accent-hover);text-decoration:none}
+  a:hover{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+  .shell{width:var(--shell);margin-inline:auto}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:1.6rem 0 0;gap:1rem}
+  .brand{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:1.125rem;letter-spacing:-.01em;color:var(--text)}
+  .brand:hover{text-decoration:none}
+  .nav ul{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0;align-items:center}
+  .nav a.link{color:var(--text2);font-weight:500;font-size:.95rem}
+  .nav a.link:hover{color:var(--text);text-decoration:none}
+  @media (max-width:560px){.nav ul li:not(:last-child){display:none}}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:46px;padding:0 1.35rem;border-radius:8px;font-weight:600;font-size:1rem;border:1px solid transparent;transition:background .15s}
+  .btn:hover{text-decoration:none}
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+  .btn-ghost{background:var(--bg);color:var(--text);border-color:var(--border);font-weight:500}
+  .btn-ghost:hover{background:var(--bg2)}
+  .btn-sm{height:36px;padding:0 .9rem;font-size:.9rem}
+
+  .hero{display:grid;grid-template-columns:5fr 7fr;gap:3.5rem;align-items:center;padding:6.5rem 0 5rem}
+  @media (max-width:900px){.hero{grid-template-columns:1fr;gap:2.25rem;padding:3.5rem 0 3rem}}
+  h1{margin:0 0 1.2rem;font-size:clamp(2.35rem,4.5vw,3.25rem);line-height:1.05;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+  .lede{margin:0 0 1.5rem;font-size:1.125rem;line-height:1.55;color:var(--text2);max-width:34rem}
+  .cta{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+  .fine{margin:1rem 0 0;font-size:.875rem;color:var(--text3)}
+  #cta-note{margin-top:.75rem;color:var(--text2)}
+  #cta-note a{font-weight:500}
+
+  /* Heatmap: the product is the argument */
+  .card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1rem;box-shadow:0 1px 2px rgba(17,24,39,.05)}
+  .card-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.5rem}
+  .card-head b{font-size:.9rem;font-weight:600}
+  .card-head span{font-size:.75rem;color:var(--text3)}
+  .months{position:relative;height:14px;font-size:.625rem;color:var(--text3);margin-bottom:.25rem}
+  .months span{position:absolute;white-space:nowrap}
+  .grid{display:grid;grid-template-rows:repeat(7,var(--cell));grid-auto-flow:column;grid-auto-columns:var(--cell);gap:var(--gap);width:max-content;--cell:9px;--gap:2px}
+  .cell{width:var(--cell);height:var(--cell);border-radius:2px;background:var(--l0);opacity:0;transform:scale(.7);transition:opacity .3s,transform .3s cubic-bezier(.2,.8,.2,1)}
+  .cell.on{opacity:1;transform:none}
+  .cell[data-l="1"]{background:var(--l1)}.cell[data-l="2"]{background:var(--l2)}.cell[data-l="3"]{background:var(--l3)}.cell[data-l="4"]{background:var(--l4)}
+  .cell.today{outline:2px solid var(--text);outline-offset:1px}
+  @media (prefers-reduced-motion:reduce){.cell{opacity:1;transform:none;transition:none}}
+  .card-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:.6rem;font-size:.75rem;color:var(--text3);flex-wrap:wrap}
+  .legend{display:inline-flex;align-items:center;gap:3px}
+  .legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+  .stats b{color:var(--text);font-weight:600}
+
+  .shot{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg);box-shadow:0 1px 2px rgba(17,24,39,.05);max-width:860px;margin:0 auto} /* at full width the screenshot took over the screen; scaled and centered it breathes */
+  /* The screenshot only shows when a fresh capture of the current build exists for that size: .has-desktop / .has-mobile. Without them the hero heatmap carries the page. */
+  @media (min-width:641px){.shot:not(.has-desktop){display:none}}
+  @media (max-width:640px){.shot{max-width:390px;margin-inline:auto} .shot:not(.has-mobile){display:none}}
+  section{padding:6rem 0 0}
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;border-top:1px solid var(--border);padding-top:5.5rem}
+  @media (max-width:760px){.why{grid-template-columns:1fr;gap:1.75rem;padding-top:3rem}}
+  .why h3{margin:0 0 .5rem;font-size:1.125rem;font-weight:600;letter-spacing:-.01em}
+  .why p{margin:0;color:var(--text2);font-size:.95rem}
+
+  h2{margin:0 0 .75rem;font-size:clamp(1.6rem,3vw,2.1rem);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+  .intro{margin:0 0 1.5rem;color:var(--text2);max-width:40rem}
+  .dl{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+  @media (max-width:900px){.dl{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.dl{grid-template-columns:1fr}}
+  .dl .plat{display:flex;flex-direction:column;gap:.55rem;border:1px solid var(--border);border-radius:12px;padding:1.1rem}
+  .dl .plat.mine{border-color:var(--accent);background:#f0fdf4}
+  .dl .plat.mine .name::after{content:"Your device";font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-hover);margin-left:.5rem;vertical-align:middle}
+  .dl .name{font-weight:600;font-size:.95rem}
+  .dl .links{display:flex;flex-direction:column;gap:.3rem;font-size:.9rem}
+  .dl .links a{font-weight:500}
+  .dl .note{font-size:.8125rem;color:var(--text3);line-height:1.45}
+  .warn{margin:1.25rem 0 0;font-size:.9rem;color:var(--text2);max-width:46rem;line-height:1.55}
+
+  footer{margin-top:5rem;border-top:1px solid var(--border);padding:2rem 0 3rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.875rem;color:var(--text3)}
+  footer ul{display:flex;flex-wrap:wrap;gap:1.4rem;list-style:none;margin:0;padding:0}
+  footer a{color:var(--text2)}
+</style>
+</head>
+<body>
+
+<header class="shell">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/" aria-label="Daylo home">
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="0" y="0" width="6" height="6" rx="1.5" fill="#10b981"/><rect x="7" y="0" width="6" height="6" rx="1.5" fill="#6ee7b7"/><rect x="14" y="0" width="6" height="6" rx="1.5" fill="#d1fae5"/><rect x="0" y="7" width="6" height="6" rx="1.5" fill="#34d399"/><rect x="7" y="7" width="6" height="6" rx="1.5" fill="#10b981"/><rect x="14" y="7" width="6" height="6" rx="1.5" fill="#6ee7b7"/><rect x="0" y="14" width="6" height="6" rx="1.5" fill="#d1fae5"/><rect x="7" y="14" width="6" height="6" rx="1.5" fill="#34d399"/><rect x="14" y="14" width="6" height="6" rx="1.5" fill="#10b981"/></svg>
+      Daylo
+    </a>
+    <ul>
+      <li><a class="link" href="#why">Why Daylo</a></li>
+      <li><a class="link" href="https://github.com/henfrydls/daylo">GitHub</a></li>
+      <li><a class="btn btn-primary btn-sm" href="#download">Download</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="shell">
+  <section class="hero" aria-labelledby="h1">
+    <div>
+      <h1 id="h1">See your whole year at a glance.</h1>
+      <p class="lede">Daylo is a simple habit tracker. Tap once a day for each habit you keep, and your year fills in with color. No account needed. Your data stays on your device.</p>
+      <div class="cta">
+        <a class="btn btn-primary" id="cta" href="#download" data-umami-event="download" data-umami-event-platform="unknown" data-umami-event-source="hero">Download</a>
+        <a class="btn btn-ghost" href="#download">Other platforms</a>
+      </div>
+      <p class="fine" id="cta-note" hidden></p>
+      <p class="fine">Free and open source · Windows · Mac · Linux · Android</p>
+    </div>
+    <figure class="card" aria-label="Example of a Daylo year">
+      <div class="card-head"><b>Example year</b><span id="range"></span></div>
+      <div class="months" id="months" aria-hidden="true"></div>
+      <div class="grid" id="grid" role="img" aria-label="One square per day for the past year. Darker green means more habits kept that day."></div>
+      <div class="card-foot">
+        <span class="legend" aria-hidden="true">Less <i style="background:var(--l0)"></i><i style="background:var(--l1)"></i><i style="background:var(--l2)"></i><i style="background:var(--l3)"></i><i style="background:var(--l4)"></i> More</span>
+        <span class="stats"><b id="st-days">0</b> active days · <b id="st-streak">0</b> day streak</span>
+      </div>
+    </figure>
+  </section>
+
+  <div class="shot has-mobile has-desktop"><!-- both screenshots are from the v1.1.1 build: drop the class if a file is replaced by one that is not -->
+    <picture>
+      <!-- Real capture of the app on a phone (390x844). A desktop screenshot shrunk to phone width is unreadable, so narrow screens get this one or nothing. -->
+      <source media="(max-width: 640px)" srcset="assets/daylo-mobile-month.png" width="780" height="1688">
+      <img src="assets/daylo-month-view.png" width="2560" height="1600" alt="Daylo month view: a calendar with a checkbox per habit each day, and this month's progress" loading="lazy">
+    </picture>
+  </div>
+
+  <section id="why" aria-label="Why Daylo">
+    <div class="why">
+      <div><h3>One tap a day</h3><p>Open Daylo, tick what you did, close it. Your streaks and monthly progress update on their own.</p></div>
+      <div><h3>Your data, your device</h3><p>Everything stays on your device. No sign-up, no server, no tracking. You can export a backup anytime.</p></div>
+      <div><h3>Every screen you own</h3><p>Windows, Mac, Linux and Android. The same calendar on your desk and in your pocket.</p></div>
+    </div>
+  </section>
+
+  <section id="download" aria-labelledby="h-dl">
+    <h2 id="h-dl">Download</h2>
+    <p class="intro">Every download is built automatically from Daylo's public code. Nothing hidden.</p>
+    <div class="dl">
+      <div class="plat" data-os="windows">
+        <span class="name">Windows</span>
+        <div class="links">
+          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-windows-x64-setup.exe" data-umami-event="download" data-umami-event-platform="windows-x64">Download for Windows</a>
+          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-windows-arm64-setup.exe" data-umami-event="download" data-umami-event-platform="windows-arm64" style="color:var(--text2);font-weight:400">Version for Windows on ARM</a>
+        </div>
+        <span class="note">Windows 10 or later. It may ask you to confirm the first time.</span>
+      </div>
+      <div class="plat" data-os="mac">
+        <span class="name">Mac</span>
+        <div class="links">
+          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-macos-apple-silicon.dmg" data-umami-event="download" data-umami-event-platform="macos-arm64">Download for Mac (Apple chip)</a>
+          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-macos-intel.dmg" data-umami-event="download" data-umami-event-platform="macos-x64" style="color:var(--text2);font-weight:400">Version for Intel Macs</a>
+        </div>
+        <span class="note">Mac may ask you to allow it in Privacy and Security.</span>
+      </div>
+      <div class="plat" data-os="linux">
+        <span class="name">Linux</span>
+        <div class="links">
+          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-linux-amd64.deb" data-umami-event="download" data-umami-event-platform="linux-deb">Download for Ubuntu and Debian</a>
+          <a href="https://github.com/henfrydls/daylo/releases/latest" data-umami-event="download" data-umami-event-platform="linux-appimage" style="color:var(--text2);font-weight:400">Other Linux (AppImage)</a>
+        </div>
+        <span class="note">Works on most Linux systems.</span>
+      </div>
+      <div class="plat" data-os="android">
+        <span class="name">Android</span>
+        <div class="links">
+          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-android-arm64.apk" data-umami-event="download" data-umami-event-platform="android">Download for Android</a>
+        </div>
+        <span class="note">Phones and tablets from 2017 onward. Allow installs from this source when asked.</span>
+      </div>
+    </div>
+    <p class="warn">Daylo is new, so Windows and Mac may show a warning the first time you open it. That is normal for apps not yet registered with Microsoft or Apple. On Windows, click More info and then Run anyway. On Mac, allow it in Privacy and Security. Every release includes a <a href="https://github.com/henfrydls/daylo/releases/latest/download/SHA256SUMS.txt">list of file checksums</a> if you want to double-check a download.</p>
+  </section>
+</main>
+
+<footer class="shell">
+  <span>Made by <strong>DLSLabs</strong> · Free and open source</span>
+  <ul>
+    <li><a href="https://github.com/henfrydls/daylo">GitHub</a></li>
+    <li><a href="https://github.com/henfrydls/daylo/releases">Downloads</a></li>
+    <li><a href="/privacy/">Privacy</a></li>
+    <li><a href="https://github.com/henfrydls/daylo/blob/main/LICENSE">License</a></li>
+  </ul>
+</footer>
+
+<script>
+(function(){
+  /* Example heatmap: a plausible, fixed pattern (nobody's data). Up to 53 weeks on desktop, fewer on narrow screens. */
+  var grid=document.getElementById('grid'),months=document.getElementById('months');
+  var today=new Date();today.setHours(0,0,0,0);
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function levels(){var seed=11,out=[];function rnd(){seed=(seed*9301+49297)%233280;return seed/233280;}
+    for(var d=0;d<365;d++){var dt=new Date(today);dt.setDate(today.getDate()-364+d);var dow=dt.getDay();
+      var base=d<60?.35:d<200?.6:.78;if(dow===0||dow===6)base-=.2;if(d>150&&d<164)base=.05;
+      var r=rnd();out.push(r>base+.25?0:r>base?1:r>base-.25?2:r>base-.45?3:4);}return out;}
+  var lv=levels(),active=0,streak=0;lv.forEach(function(l){if(l)active++;});for(var i=lv.length-1;i>=0&&lv[i];i--)streak++;
+  document.getElementById('st-days').textContent=active;document.getElementById('st-streak').textContent=streak;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function render(weeks){
+    var total=weeks*7,startIdx=Math.max(0,lv.length-total+((today.getDay()+1)%7?0:0));
+    var slice=lv.slice(lv.length-Math.min(lv.length,total)),start=new Date(today);start.setDate(today.getDate()-(slice.length-1));
+    var lead=start.getDay();grid.innerHTML='';months.innerHTML='';
+    var frag=document.createDocumentFragment(),cells=[];
+    for(var i=0;i<lead;i++){var e=document.createElement('i');e.className='cell on';e.style.visibility='hidden';frag.appendChild(e);}
+    var last=-1,step=11;
+    slice.forEach(function(l,d){var dt=new Date(start);dt.setDate(start.getDate()+d);
+      var c=document.createElement('i');c.className='cell';c.setAttribute('data-l',l);
+      c.title=dt.toLocaleDateString(undefined,{month:'short',day:'numeric'})+(l?' · '+l+' kept':' · rest day');
+      if(d===slice.length-1)c.classList.add('today');frag.appendChild(c);cells.push(c);
+      if(dt.getMonth()!==last&&dt.getDate()<=7){last=dt.getMonth();var m=document.createElement('span');m.textContent=names[last];m.style.left=(Math.floor((d+lead)/7)*step)+'px';months.appendChild(m);}
+    });
+    grid.appendChild(frag);
+    var act=0,stk=0;slice.forEach(function(l){if(l)act++;});for(var k=slice.length-1;k>=0&&slice[k];k--)stk++;
+    document.getElementById('st-days').textContent=act;document.getElementById('st-streak').textContent=stk;
+    document.getElementById('range').textContent=start.toLocaleDateString(undefined,{month:'short',year:'numeric'})+' to '+today.toLocaleDateString(undefined,{month:'short',year:'numeric'});
+    if(reduce){cells.forEach(function(c){c.classList.add('on');});}
+    else{cells.forEach(function(c,i){setTimeout(function(){c.classList.add('on');},120+Math.floor(i/7)*20);});}
+  }
+  /* The heatmap has an intrinsic width (width:max-content, --cell columns): the number of
+     weeks comes from the space actually available, not from a breakpoint. A fixed bucket overflows
+     when the container's width is not decided by the viewport (two-column hero). */
+  function semanasQueCaben(){
+    var cs=getComputedStyle(grid);
+    var celda=parseFloat(cs.getPropertyValue('--cell'))||9;
+    var hueco=parseFloat(cs.getPropertyValue('--gap'))||2;
+    var libre=months.clientWidth;                       /* .months fills the card's content box */
+    var columnas=Math.floor((libre+hueco)/(celda+hueco));
+    return Math.max(12,Math.min(53,columnas-1));        /* -1 for the partial lead column */
+  }
+  function repintar(){render(semanasQueCaben());}
+  repintar();
+  var ultimoAncho=months.clientWidth,temporizador;
+  window.addEventListener('resize',function(){
+    clearTimeout(temporizador);
+    temporizador=setTimeout(function(){
+      if(months.clientWidth!==ultimoAncho){ultimoAncho=months.clientWidth;repintar();}
+    },150);
+  });
+
+  /* Primary button follows the visitor's system */
+  var ua=navigator.userAgent||'',plat=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||'';
+  var base='https://github.com/henfrydls/daylo/releases/latest/download/',os=null,label=null,href=null,card=null;
+  if(/Android/i.test(ua)){os='android';label='Download for Android';href=base+'Daylo-android-arm64.apk';card='android';}
+  else if(/iPhone|iPad|iPod/i.test(ua)){os=null;}
+  else if(/Win/i.test(plat)||/Windows/i.test(ua)){var arm=/ARM64|aarch64/i.test(ua);os=arm?'windows-arm64':'windows-x64';label='Download for Windows';href=base+(arm?'Daylo-windows-arm64-setup.exe':'Daylo-windows-x64-setup.exe');card='windows';}
+  else if(/Mac/i.test(plat)||/Macintosh/i.test(ua)){os='macos-arm64';label='Download for Mac (Apple chip)';href=base+'Daylo-macos-apple-silicon.dmg';card='mac';
+    var n=document.getElementById('cta-note');n.innerHTML='Mac with an Intel chip? <a href="'+base+'Daylo-macos-intel.dmg" data-umami-event="download" data-umami-event-platform="macos-x64">Download this version instead</a>.';n.hidden=false;}
+  else if(/Linux/i.test(plat)||/Linux/i.test(ua)){os='linux-deb';label='Download for Linux';href=base+'Daylo-linux-amd64.deb';card='linux';}
+  var cta=document.getElementById('cta');
+  if(os){cta.textContent=label;cta.href=href;cta.setAttribute('data-umami-event-platform',os);
+    var el=document.querySelector('.plat[data-os="'+card+'"]');if(el)el.classList.add('mine');}
+})();
+</script>
+</body>
+</html>

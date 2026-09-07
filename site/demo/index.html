@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+
+    <!-- Primary favicon (SVG with dark mode support) -->
+    <link rel="icon" type="image/svg+xml" href="/demo/favicon.svg" />
+    <!-- Fallback for browsers that don't support SVG favicons -->
+    <link rel="icon" type="image/png" sizes="96x96" href="/demo/favicon-96x96.png" />
+    <link rel="icon" type="image/x-icon" href="/demo/favicon.ico" />
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/demo/apple-touch-icon.png" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/demo/site.webmanifest" />
+
+    <!-- Theme color (matches emerald brand) -->
+    <meta name="theme-color" content="#10b981" />
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Daylo - Simple Activity Tracker. Track your daily habits with a beautiful heatmap calendar." />
+    <meta name="application-name" content="Daylo" />
+
+    <title>Daylo</title>
+    <style>
+      @keyframes skeleton-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      .sk { animation: skeleton-pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; background: #e5e7eb; border-radius: 0.25rem; }
+    </style>
+    <script type="module" crossorigin src="/demo/assets/index-DkvggFLA.js"></script>
+    <link rel="stylesheet" crossorigin href="/demo/assets/index-DxzzDSsB.css">
+    <script defer src="https://analytics.henfrydls.com/script.js" data-website-id="e5fcf739-d6b1-4c48-9645-55b4fd90b50a" data-domains="daylo.henfrydls.com"></script>
+  </head>
+  <body>
+    <div role="note" style="background:#ecfdf5;color:#064e3b;border-bottom:1px solid #a7f3d0;padding:.6rem 1rem;font:500 .875rem/1.45 system-ui,sans-serif;text-align:center">
+      This is a demo. Anything you add here stays in this browser only and will not appear in the app when you install it.
+      Want to keep it? Use <b>Export Data</b> here and <b>Import Data</b> in the app.
+      <a href="/" style="color:#047857;text-decoration:underline;margin-left:.35rem">Get the app</a>
+      <span aria-hidden="true" style="margin:0 .35rem;color:#6ee7b7">·</span><a href="/privacy/" style="color:#047857;text-decoration:underline">Privacy</a>
+    </div>
+    <div id="root">
+      <!-- Pre-React skeleton: replaced automatically when React mounts -->
+      <div style="min-height:100vh;background:#f9fafb">
+        <header style="background:#fff;border-bottom:1px solid #e5e7eb">
+          <div style="max-width:80rem;margin:0 auto;padding:0.75rem 1rem">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div class="sk" style="width:4rem;height:1.5rem"></div>
+              <div style="display:flex;gap:0.5rem">
+                <div class="sk" style="width:3.5rem;height:1.75rem;border-radius:0.375rem"></div>
+                <div class="sk" style="width:4rem;height:1.75rem;border-radius:0.375rem"></div>
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
+    </div>
+  </body>
+</html>
