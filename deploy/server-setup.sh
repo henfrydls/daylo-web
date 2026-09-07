@@ -9,6 +9,7 @@ set -euo pipefail
 here=$(cd "$(dirname "$0")" && pwd)
 # shellcheck source=config.env
 source "$here/config.env"
+[[ $EUID -eq 0 ]] || { echo "run with sudo: the webroot belongs to www-data" >&2; exit 1; }
 
 for tool in git rsync nginx curl; do
   command -v "$tool" >/dev/null || { echo "missing: $tool" >&2; exit 1; }
@@ -29,6 +30,7 @@ ln -sfn "/etc/nginx/sites-available/$DOMAIN" "/etc/nginx/sites-enabled/$DOMAIN"
 nginx -t
 systemctl reload nginx
 
+# Informative only: the site is already published at this point.
 for path in / /privacy/ /demo/ /assets/og.png; do
-  printf '%-16s %s\n' "$path" "$(curl -sS -o /dev/null -w '%{http_code}' "https://$DOMAIN$path")"
+  printf '%-16s %s\n' "$path" "$(curl -sS -o /dev/null -w '%{http_code}' "https://$DOMAIN$path" || echo "no answer")"
 done

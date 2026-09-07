@@ -7,6 +7,7 @@ set -euo pipefail
 here=$(cd "$(dirname "$0")" && pwd)
 # shellcheck source=config.env
 source "$here/config.env"
+[[ $EUID -eq 0 ]] || { echo "run with sudo: the webroot belongs to www-data" >&2; exit 1; }
 
 git -C "$CHECKOUT" fetch --quiet origin main
 git -C "$CHECKOUT" checkout --quiet main
@@ -15,4 +16,5 @@ rsync -a --delete "$CHECKOUT/site/" "$WEBROOT/"
 chown -R www-data:www-data "$WEBROOT"
 
 echo "published $(git -C "$CHECKOUT" rev-parse --short HEAD) to $WEBROOT"
-curl -sSI "https://$DOMAIN/" | head -1
+# Informative only: a failed check after a successful publish should not make the script fail.
+curl -sS -o /dev/null -w "https://$DOMAIN/ -> %{http_code}\n" "https://$DOMAIN/" || echo "check failed: $DOMAIN did not answer" >&2
