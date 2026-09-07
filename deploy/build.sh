@@ -66,9 +66,9 @@ rm -rf "$root/site/demo"
 cp -r "$work/demo" "$root/site/demo"
 
 # Landing: version in the JSON-LD, Umami id, and the privacy policy's effective date (set once).
-python3 - "$root/site" "$tag" "$UMAMI_WEBSITE_ID" <<'PY'
+python3 - "$root/site" "$tag" "$UMAMI_WEBSITE_ID" "$DOMAIN" <<'PY'
 import re, sys, datetime
-site, tag, site_id = sys.argv[1:]
+site, tag, site_id, domain = sys.argv[1:]
 version = tag.lstrip("v")
 today = datetime.date.today()
 for rel in ("index.html", "privacy/index.html"):
@@ -76,6 +76,7 @@ for rel in ("index.html", "privacy/index.html"):
     s = s.replace("__APP_VERSION__", version)
     s = re.sub(r'"softwareVersion": "[^"]*"', f'"softwareVersion": "{version}"', s)
     s = re.sub(r'data-website-id="[^"]*"', f'data-website-id="{site_id}"', s)
+    s = re.sub(r'data-domains="[^"]*"', f'data-domains="{domain}"', s)
     s = s.replace("PUBLISH_DATE_ISO", today.isoformat()).replace("PUBLISH_DATE", today.strftime("%B %-d, %Y"))
     open(p, "w", encoding="utf-8").write(s)
 PY
