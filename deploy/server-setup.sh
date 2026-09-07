@@ -22,7 +22,9 @@ if [[ ! -d "$CHECKOUT/.git" ]]; then
 fi
 
 mkdir -p "$WEBROOT"
-rsync -a --delete "$CHECKOUT/site/" "$WEBROOT/"
+# Old files stay until the whole transfer is done and updated files land together, so a page
+# loaded mid-publish never points at a bundle that is not there yet.
+rsync -a --delay-updates --delete-after "$CHECKOUT/site/" "$WEBROOT/"
 chown -R www-data:www-data "$WEBROOT"
 
 install -m 644 "$CHECKOUT/deploy/nginx/$DOMAIN.conf" "/etc/nginx/sites-available/$DOMAIN"
