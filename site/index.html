@@ -304,7 +304,8 @@
   var ua=navigator.userAgent||'',plat=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||'';
   var base='https://github.com/henfrydls/daylo/releases/latest/download/',os=null,label=null,href=null,card=null,ios=false;
   if(/Android/i.test(ua)){os='android';label='Download for Android';href=base+'Daylo-android-arm64.apk';card='android';}
-  else if(/iPhone|iPad|iPod/i.test(ua)){ios=true;}
+  /* iPadOS 13+ reports itself as a Mac; only the touch points give it away. Checked before the Mac branch on purpose. */
+  else if(/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/i.test(ua)&&navigator.maxTouchPoints>1)){ios=true;}
   else if(/Win/i.test(plat)||/Windows/i.test(ua)){var arm=/ARM64|aarch64/i.test(ua);os=arm?'windows-arm64':'windows-x64';label='Download for Windows';href=base+(arm?'Daylo-windows-arm64-setup.exe':'Daylo-windows-x64-setup.exe');card='windows';}
   else if(/Mac/i.test(plat)||/Macintosh/i.test(ua)){os='macos-arm64';label='Download for Mac (Apple chip)';href=base+'Daylo-macos-apple-silicon.dmg';card='mac';
     var n=document.getElementById('cta-note');n.innerHTML='Mac with an Intel chip? <a href="'+base+'Daylo-macos-intel.dmg" data-umami-event="download" data-umami-event-platform="macos-x64">Download this version instead</a>.';n.hidden=false;}
@@ -315,7 +316,9 @@
   /* No iPhone build yet. Instead of a dead end, the button measures demand: one click, one event, no data about the visitor. */
   if(ios){cta.textContent='Not on iPhone yet. I want it';cta.href='#want-ios';cta.setAttribute('data-umami-event','want-ios');cta.setAttribute('data-umami-event-platform','ios');
     var note=document.getElementById('cta-note');note.innerHTML='Meanwhile, <a href="/demo/">try Daylo in your browser</a>. It works on a phone too.';note.hidden=false;
-    cta.addEventListener('click',function(e){e.preventDefault();if(cta.getAttribute('aria-disabled')==='true')return;cta.textContent='Noted. Thank you';cta.setAttribute('aria-disabled','true');cta.style.pointerEvents='none';});}
+    cta.addEventListener('click',function(e){e.preventDefault();if(cta.getAttribute('aria-disabled')==='true')return;cta.textContent='Noted. Thank you';cta.setAttribute('aria-disabled','true');cta.style.pointerEvents='none';
+      /* pointer-events stops taps but not the keyboard: without href the link is neither focusable nor activatable, so a visitor counts once. */
+      cta.removeAttribute('href');cta.setAttribute('tabindex','-1');});}
 })();
 </script>
 </body>
