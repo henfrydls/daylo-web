@@ -44,7 +44,7 @@ On the server, as root: clone the repo to `/opt/daylo-web` and run `deploy/serve
 
 ## Analytics
 
-The site uses a self-hosted [Umami](https://umami.is) instance: no cookies, no IP addresses, no cross-site tracking. The app itself sends nothing. See the [privacy policy](https://daylo.henfrydls.com/privacy/).
+The site uses a self-hosted [Umami](https://umami.is) instance: no cookies, no IP addresses, no cross-site tracking. The app itself sends only the anonymous check-in described in the privacy policy, and nothing at all once it is turned off. See the [privacy policy](https://daylo.henfrydls.com/privacy/).
 
 ## License
 
