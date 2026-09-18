@@ -35,6 +35,7 @@
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "license": "https://opensource.org/licenses/MIT",
   "downloadUrl": "https://github.com/henfrydls/daylo/releases/latest",
+  "installUrl": "https://apps.microsoft.com/detail/9NJM37WMMC5Z",
   "softwareVersion": "1.3.0",
   "url": "https://daylo.henfrydls.com/",
   "screenshot": "https://daylo.henfrydls.com/assets/daylo-year-view.png",
@@ -203,10 +204,11 @@
       <div class="plat" data-os="windows">
         <span class="name">Windows</span>
         <div class="links">
-          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-windows-x64-setup.exe" data-umami-event="download" data-umami-event-platform="windows-x64">Download for Windows</a>
-          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-windows-arm64-setup.exe" data-umami-event="download" data-umami-event-platform="windows-arm64" style="color:var(--text2);font-weight:400">Version for Windows on ARM</a>
+          <a href="https://apps.microsoft.com/detail/9NJM37WMMC5Z" data-umami-event="download" data-umami-event-platform="windows-store">Get it from the Microsoft Store</a>
+          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-windows-x64-setup.exe" data-umami-event="download" data-umami-event-platform="windows-x64" style="color:var(--text2);font-weight:400">Installer instead (64-bit)</a>
+          <a href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-windows-arm64-setup.exe" data-umami-event="download" data-umami-event-platform="windows-arm64" style="color:var(--text2);font-weight:400">Installer for Windows on ARM</a>
         </div>
-        <span class="note">Windows 10 or later. It may ask you to confirm the first time.</span>
+        <span class="note">Windows 10 or later. The Store installs it without any warning.</span>
       </div>
       <div class="plat" data-os="mac">
         <span class="name">Mac</span>
@@ -232,7 +234,7 @@
         <span class="note">Phones and tablets from 2017 onward. Allow installs from this source when asked; when Play Protect blocks it, tap the small Install anyway link.</span>
       </div>
     </div>
-    <p class="warn">Daylo is new, so Windows, Mac and Android will most likely show a warning the first time you install it. That is normal for apps not yet registered with Microsoft, Apple or Google. On Windows, click More info and then Run anyway. On Mac, allow it in Privacy and Security. On Android, Play Protect blocks the install with a big Got it button: the small Install anyway link below it is the one that continues. Every release includes a <a href="https://github.com/henfrydls/daylo/releases/latest/download/SHA256SUMS.txt">list of file checksums</a> if you want to double-check a download.</p>
+    <p class="warn">Daylo is new, so Mac and Android will most likely show a warning the first time you install it, and so will the Windows installer. That is normal for apps not yet registered with Apple or Google. On Mac, allow it in Privacy and Security. On Android, Play Protect blocks the install with a big Got it button: the small Install anyway link below it is the one that continues. On Windows, the Microsoft Store version has none of this; if you use the installer instead, click More info and then Run anyway. Every release includes a <a href="https://github.com/henfrydls/daylo/releases/latest/download/SHA256SUMS.txt">list of file checksums</a> if you want to double-check a download.</p>
   </section>
 </main>
 
@@ -302,11 +304,13 @@
 
   /* Primary button follows the visitor's system */
   var ua=navigator.userAgent||'',plat=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||'';
-  var base='https://github.com/henfrydls/daylo/releases/latest/download/',os=null,label=null,href=null,card=null,ios=false;
+  var base='https://github.com/henfrydls/daylo/releases/latest/download/',store='https://apps.microsoft.com/detail/9NJM37WMMC5Z',os=null,label=null,href=null,card=null,ios=false;
   if(/Android/i.test(ua)){os='android';label='Download for Android';href=base+'Daylo-android-arm64.apk';card='android';}
   /* iPadOS 13+ reports itself as a Mac; only the touch points give it away. Checked before the Mac branch on purpose. */
   else if(/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/i.test(ua)&&navigator.maxTouchPoints>1)){ios=true;}
-  else if(/Win/i.test(plat)||/Windows/i.test(ua)){var arm=/ARM64|aarch64/i.test(ua);os=arm?'windows-arm64':'windows-x64';label='Download for Windows';href=base+(arm?'Daylo-windows-arm64-setup.exe':'Daylo-windows-x64-setup.exe');card='windows';}
+  /* Windows goes to the Store: one link for both processors, and no security warning to talk the visitor through. */
+  else if(/Win/i.test(plat)||/Windows/i.test(ua)){os='windows-store';label='Get it from the Microsoft Store';href=store;card='windows';
+    var w=document.getElementById('cta-note');w.innerHTML='Prefer a plain installer? <a href="'+base+'Daylo-windows-x64-setup.exe" data-umami-event="download" data-umami-event-platform="windows-x64">Download it instead</a>.';w.hidden=false;}
   else if(/Mac/i.test(plat)||/Macintosh/i.test(ua)){os='macos-arm64';label='Download for Mac (Apple chip)';href=base+'Daylo-macos-apple-silicon.dmg';card='mac';
     var n=document.getElementById('cta-note');n.innerHTML='Mac with an Intel chip? <a href="'+base+'Daylo-macos-intel.dmg" data-umami-event="download" data-umami-event-platform="macos-x64">Download this version instead</a>.';n.hidden=false;}
   else if(/Linux/i.test(plat)||/Linux/i.test(ua)){os='linux-deb';label='Download for Linux';href=base+'Daylo-linux-amd64.deb';card='linux';}
