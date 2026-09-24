@@ -1,0 +1,5 @@
+# Daylo is a habit tracker. Everything here is public and meant to be read.
+User-agent: *
+Allow: /
+
+Sitemap: https://daylo.henfrydls.com/sitemap.xml
