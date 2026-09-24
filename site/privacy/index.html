@@ -61,7 +61,7 @@
     <p class="kicker">Privacy</p>
     <h1>Daylo Privacy Policy</h1>
     <p class="meta">Effective <time datetime="2026-09-13">September 13, 2026</time> · Applies to the Daylo app (Windows, macOS, Linux, Android), the <a href="/demo/">web demo</a>, and this website.</p>
-    <p class="summary"><strong>The short version:</strong> Your data stays on your device. Daylo has no account, and no server stores your habits or the days you marked. One thing leaves your device unless you turn it off: an anonymous daily check-in that tells us the app is still in use. It carries a random number, the app version, your system and the date, and nothing else. The app tells you the first time it opens, and you can turn it off from the menu at any time. This website uses privacy-respecting, cookieless analytics that never identify you.</p>
+    <p class="summary"><strong>The short version:</strong> Your data stays on your device. Daylo has no account, and no server stores your habits or the days you marked. One thing leaves your device unless you turn it off: an anonymous daily check-in that tells us the app is still in use. Once, after a week, Daylo also asks how it is going, and whatever you answer leaves only because you answered. It carries a random number, the app version, your system and the date, and nothing else. The app tells you the first time it opens, and you can turn it off from the menu at any time. This website uses privacy-respecting, cookieless analytics that never identify you.</p>
   </header>
 
   <main>
@@ -92,6 +92,17 @@
       <p>The check-in tells us whether copies of Daylo are still in use from one week to the next. It cannot tell us who you are, and we do not try.</p>
       <h3>This is not just a promise</h3>
       <p>Daylo's public code is checked automatically on every change. The part of the app that draws the screen fails the check if any analytics, tracking or error-reporting service appears in its code, its dependencies or its built files. The native part fails the check if it names any address other than the one in this section. You can see both checks in the project's GitHub repository.</p>
+      <h3>Telling us how it is going</h3>
+      <p>After a week of use, Daylo asks once how it is going, with five stars. Tapping a star sends that rating. Nothing is sent if you close the question instead, and it is only asked once.</p>
+      <p>After you tap, Daylo offers you a box to say more. That box is the one place where something you write leaves your device, and it leaves only when you press Send. If you close the app instead, nothing goes.</p>
+      <p>What those two messages carry:</p>
+      <ul>
+        <li>the stars you tapped, and the words you wrote if you wrote any</li>
+        <li>a second random number that exists only while the question is open, so that your words can be matched with your stars. It is not kept anywhere and it is gone when the question closes</li>
+        <li>the same random number as the check-in, but only if your check-in is on. If you turned the check-in off, this is not included: of somebody who turned it off we know only what they chose to write to us</li>
+      </ul>
+      <p>They do not carry your name, your email, your habits, their names, or the days you marked. We cannot reply to a comment, because there is nothing in it to reply to. If you want an answer, write to the address below instead.</p>
+      <p>Once a comment is sent it cannot be taken back, for the same reason: there is nothing tying it to you, so there is nothing for us to find and delete on your behalf.</p>
     </section>
 
     <section id="website" aria-labelledby="h-site">
