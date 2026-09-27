@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Daylo Privacy Policy</title>
-<meta name="description" content="Daylo does not collect your data. Everything you enter stays on your device. This page explains what the app stores, the anonymous check-in it sends unless you turn it off, and how this website is measured.">
+<meta name="description" content="Daylo does not collect your data. Everything you enter stays on your device. This page explains what the app stores, the anonymous check-in and the update check it sends unless you turn them off, and how this website is measured.">
 <link rel="canonical" href="https://daylo.henfrydls.com/privacy/">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -60,8 +60,8 @@
   <header class="title">
     <p class="kicker">Privacy</p>
     <h1>Daylo Privacy Policy</h1>
-    <p class="meta">Effective <time datetime="2026-09-13">September 13, 2026</time> · Applies to the Daylo app (Windows, macOS, Linux, Android), the <a href="/demo/">web demo</a>, and this website.</p>
-    <p class="summary"><strong>The short version:</strong> Your data stays on your device. Daylo has no account, and no server stores your habits or the days you marked. One thing leaves your device unless you turn it off: an anonymous daily check-in that tells us the app is still in use. Once, after a week, Daylo also asks how it is going, and whatever you answer leaves only because you answered. It carries a random number, the app version, your system and the date, and nothing else. The app tells you the first time it opens, and you can turn it off from the menu at any time. This website uses privacy-respecting, cookieless analytics that never identify you.</p>
+    <p class="meta">Effective <time datetime="2026-09-27">September 27, 2026</time> · Applies to the Daylo app (Windows, macOS, Linux, Android), the <a href="/demo/">web demo</a>, and this website.</p>
+    <p class="summary"><strong>The short version:</strong> Your data stays on your device. Daylo has no account, and no server stores your habits or the days you marked. Two things make the app talk to the internet on its own, and you can turn off either one: an anonymous daily check-in that tells us the app is still in use, and a check with GitHub for a newer version. Once, after a week, Daylo also asks how it is going, and whatever you answer leaves only because you answered. The app tells you the first time it opens, and the menu turns any of it off at any time. This website uses privacy-respecting, cookieless analytics that never identify you.</p>
   </header>
 
   <main>
@@ -74,7 +74,7 @@
 
     <section id="app-sends" aria-labelledby="h-sends">
       <h2 id="h-sends">What the app sends</h2>
-      <p><strong>Nothing, unless you turn one thing on.</strong> Daylo makes no network requests of its own. There is no telemetry, no crash reporting, and no third-party SDK inside the app. The part of the app that draws the screen cannot reach any server at all: its security policy allows no connection, and anyone can read that policy in <code>src-tauri/tauri.conf.json</code> in the public code.</p>
+      <p><strong>Two things, and each one can be turned off:</strong> a daily check-in to our own server, and a check with GitHub for a newer version. Nothing else. There is no telemetry, no crash reporting, and no third-party SDK inside the app. The part of the app that draws the screen cannot reach any server at all: its security policy allows no connection, and anyone can read that policy in <code>src-tauri/tauri.conf.json</code> in the public code. Both requests are made by the other half of the app, the part written in Rust, and both are a few lines you can read.</p>
       <h3>The anonymous check-in</h3>
       <p>Daylo sends an anonymous daily check-in. On a new installation it is on from the first time the app opens, and the app says so that first time, with a link to see exactly what is sent and to turn it off. If you installed Daylo before version 1.3.0 and update, it stays off until you turn it on from the app's menu, under Anonymous check-in. Once a day at most, and only on a day you open Daylo, the app sends four things to our own server:</p>
       <ul>
@@ -103,6 +103,16 @@
       </ul>
       <p>They do not carry your name, your email, your habits, their names, or the days you marked. We cannot reply to a comment, because there is nothing in it to reply to. If you want an answer, write to the address below instead.</p>
       <p>Once a comment is sent it cannot be taken back, for the same reason: there is nothing tying it to you, so there is nothing for us to find and delete on your behalf.</p>
+
+      <h3>Checking for a new version</h3>
+      <p>This is new in version 1.4.0. Earlier versions never checked for anything, and if you are running one of those, nothing below applies to you until you update.</p>
+      <p>Daylo can check whether a newer version exists. To do that it asks GitHub for a small file that lists the latest release, and GitHub answers. <strong>The request says nothing about you:</strong> no random number, no identifier, nothing about your habits or anything you typed. It carries only what any download carries: which system the file is for.</p>
+      <p><strong>We never see it.</strong> The request goes to GitHub, not to us, so nothing about it reaches any server of ours. Like any server you connect to, GitHub sees the internet address your connection is using, and GitHub's own privacy policy covers what it does with that.</p>
+      <p>If a newer version exists, Daylo tells you, and you decide. It never installs anything you did not ask for, and you can turn the check off from the menu. With it off, Daylo never asks.</p>
+      <p><strong>What happens next depends on how you installed Daylo.</strong></p>
+      <p><strong>If you got Daylo from the Microsoft Store, Daylo says nothing at all</strong>, because the Store already keeps it up to date for you. There is nothing for you to do and nothing for Daylo to tell you.</p>
+      <p><strong>If you installed it yourself</strong>, Daylo tells you and you decide. On Windows it closes itself, a progress bar appears, and it opens again on the new version; it never asks for an administrator password, because Daylo installs for your user only. On a Mac the new version replaces the old one and Daylo restarts. On Linux, if you use the AppImage the new one takes its place; <strong>if you installed the <code>.deb</code>, Daylo does not install anything: it tells you there is a new version and takes you to the download page, so you install it the way you install everything else on your system.</strong></p>
+      <p>On Android there is no update check at all. Daylo is not on Google Play yet, so there is nothing for it to check against.</p>
     </section>
 
     <section id="website" aria-labelledby="h-site">
