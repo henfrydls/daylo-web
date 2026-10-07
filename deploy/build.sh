@@ -75,6 +75,7 @@ for rel in ("index.html", "privacy/index.html"):
     p = f"{site}/{rel}"; s = open(p, encoding="utf-8").read()
     s = s.replace("__APP_VERSION__", version)
     s = re.sub(r'"softwareVersion": "[^"]*"', f'"softwareVersion": "{version}"', s)
+    s = re.sub(r"Daylo-\d+\.\d+\.\d+\.apk", f"Daylo-{version}.apk", s)  # the name the Android download is saved under
     s = re.sub(r'data-website-id="[^"]*"', f'data-website-id="{site_id}"', s)
     s = re.sub(r'data-domains="[^"]*"', f'data-domains="{domain}"', s)
     s = s.replace("PUBLISH_DATE_ISO", today.isoformat()).replace("PUBLISH_DATE", today.strftime("%B %-d, %Y"))
