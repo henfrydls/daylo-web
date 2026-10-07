@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daylo for Android</title>
+<meta name="description" content="Download Daylo for Android: a free, open source habit tracker with no account. Three steps to install it on your phone.">
+<link rel="canonical" href="https://daylo.henfrydls.com/android/">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<script defer src="https://analytics.henfrydls.com/script.js" data-website-id="e5fcf739-d6b1-4c48-9645-55b4fd90b50a" data-domains="daylo.henfrydls.com"></script>
+<style>
+  :root{
+    --ground:#F6F8F6; --surface:#FFFFFF; --sunk:#EDF2EE;
+    --ink:#14211B; --ink-soft:#4A5B52; --ink-faint:#7B8B82;
+    --rule:#D9E2DB; --accent:#1F7A35; --accent-hover:#175F29; --accent-soft:#DDF0E1;
+    --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+    --body:"Instrument Sans",ui-sans-serif,system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px} a:hover{color:var(--accent-hover)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+  code{font-family:var(--mono);font-size:.875em;background:var(--sunk);padding:.1em .35em;border-radius:3px}
+  .shell{width:min(720px,100% - 2.5rem);margin-inline:auto}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 0;gap:1rem}
+  .brand{display:flex;align-items:center;gap:.55rem;font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+  .brand .mark{display:grid;grid-template-columns:repeat(3,6px);gap:2px}
+  .brand .mark i{width:6px;height:6px;border-radius:1px;background:var(--accent)} .brand .mark i:nth-child(even){opacity:.45}
+  .nav a.back{color:var(--ink-soft);text-decoration:none;font-weight:500;font-size:.95rem} .nav a.back:hover{color:var(--ink)}
+  header.title{padding:2rem 0 1.5rem;border-bottom:1px solid var(--rule)}
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 .6rem}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(2rem,5vw,2.8rem);line-height:1.02;letter-spacing:-.03em;margin:0 0 .8rem;text-wrap:balance}
+  .meta{font-size:.9rem;color:var(--ink-faint);margin:0}
+  .summary{margin:1.6rem 0 0;padding:1.1rem 1.3rem;background:var(--accent-soft);border-radius:12px;font-size:1.05rem;line-height:1.55}
+  .summary strong{color:var(--ink)}
+  main section{padding:1.8rem 0 0}
+  h2{font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.02em;line-height:1.15;margin:0 0 .6rem}
+  h3{font-family:var(--display);font-weight:600;font-size:1.1rem;letter-spacing:-.01em;margin:1.2rem 0 .4rem}
+  p{margin:0 0 .9rem;color:var(--ink-soft)} p strong{color:var(--ink)}
+  ul{margin:0 0 .9rem;padding-left:1.2rem;color:var(--ink-soft)} li{margin:.25rem 0}
+  footer{border-top:1px solid var(--rule);margin-top:2.5rem;padding:2rem 0 3rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.9rem;color:var(--ink-faint)}
+  footer ul{display:flex;flex-wrap:wrap;gap:1.2rem;list-style:none;margin:0;padding:0} footer a{color:var(--ink-soft);text-decoration:none} footer a:hover{color:var(--ink);text-decoration:underline}
+
+  .get{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;margin:1.6rem 0 0}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:1.1rem;padding:.95rem 1.5rem;border-radius:12px;transition:background-color .15s}
+  .btn:hover{background:var(--accent-hover);color:#fff}
+  .size{font-size:.9rem;color:var(--ink-faint);margin:0}
+  ol.steps{list-style:none;counter-reset:s;margin:1.8rem 0 0;padding:0}
+  ol.steps li{counter-increment:s;position:relative;padding:0 0 1.1rem 2.6rem;margin:0;color:var(--ink-soft)}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:-.05rem;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:600;display:grid;place-items:center;font-size:.95rem}
+  ol.steps strong{color:var(--ink)}
+  .stuck{margin:.6rem 0 0;padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--rule);border-radius:12px;font-size:.98rem}
+  .stuck p{margin:0}
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/" aria-label="Daylo home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>Daylo</a>
+    <a class="back" href="/">← Back to Daylo</a>
+  </nav>
+
+  <header class="title">
+    <p class="kicker">Android</p>
+    <h1>Daylo for Android</h1>
+    <p class="meta">Free, no account. Phones and tablets from 2017 onward.</p>
+    <div class="get">
+      <a class="btn" href="https://github.com/henfrydls/daylo/releases/latest/download/Daylo-android-arm64.apk" data-umami-event="download" data-umami-event-platform="android-page">Download Daylo</a>
+      <p class="size">About 17 MB, from GitHub, where Daylo is published.</p>
+    </div>
+  </header>
+
+  <main>
+    <ol class="steps">
+      <li><strong>Download</strong> with the button above.</li>
+      <li><strong>Open the file</strong> when it finishes. If your phone asks, allow installs from this source.</li>
+      <li>If Play Protect warns about an unknown app, tap <strong>More details</strong>, then <strong>Install anyway</strong>. Daylo is not on Google Play yet, so every phone shows this once.</li>
+    </ol>
+
+    <div class="stuck">
+      <p><strong>Stuck on “Downloading”?</strong> You opened this page from another app. Tap <strong>⋮</strong> at the top, choose <strong>Open in Chrome</strong>, and download again.</p>
+    </div>
+
+    <section>
+      <h2>Updating</h2>
+      <p>Daylo for Android does not update itself yet. For a new version, download it here again and install it over the one you have. Your habits and days stay.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Daylo is a <strong>DLSLabs</strong> project by Henfry De Los Santos · MIT License</span>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/privacy/">Privacy</a></li>
+      <li><a href="https://github.com/henfrydls/daylo/releases">All releases</a></li>
+    </ul>
+  </footer>
+</div>
+</body>
+</html>
