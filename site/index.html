@@ -36,7 +36,7 @@
   "license": "https://opensource.org/licenses/MIT",
   "downloadUrl": "https://github.com/henfrydls/daylo/releases/latest",
   "installUrl": "https://apps.microsoft.com/detail/9NJM37WMMC5Z",
-  "softwareVersion": "1.4.1",
+  "softwareVersion": "1.4.2",
   "url": "https://daylo.henfrydls.com/",
   "screenshot": "https://daylo.henfrydls.com/assets/daylo-year-view.png",
   "author": { "@type": "Person", "name": "Henfry De Los Santos", "url": "https://henfrydls.com" },
@@ -229,7 +229,7 @@
       <div class="plat" data-os="android">
         <span class="name">Android</span>
         <div class="links">
-          <a href="/android/Daylo-1.4.1.apk" download="Daylo-1.4.1.apk" data-umami-event="download" data-umami-event-platform="android">Download for Android</a>
+          <a href="/android/Daylo-1.4.2.apk" download="Daylo-1.4.2.apk" data-umami-event="download" data-umami-event-platform="android">Download for Android</a>
         </div>
         <span class="note">Phones and tablets from 2017 onward. Allow installs from this source when asked; when Play Protect blocks it, tap the small Install anyway link.</span>
       </div>
@@ -306,7 +306,7 @@
   /* Primary button follows the visitor's system */
   var ua=navigator.userAgent||'',plat=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||'';
   var base='https://github.com/henfrydls/daylo/releases/latest/download/',store='https://apps.microsoft.com/detail/9NJM37WMMC5Z',os=null,label=null,href=null,card=null,ios=false;
-  if(/Android/i.test(ua)){os='android';label='Download for Android';href='/android/Daylo-1.4.1.apk';card='android';}
+  if(/Android/i.test(ua)){os='android';label='Download for Android';href='/android/Daylo-1.4.2.apk';card='android';}
   /* iPadOS 13+ reports itself as a Mac; only the touch points give it away. Checked before the Mac branch on purpose. */
   else if(/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/i.test(ua)&&navigator.maxTouchPoints>1)){ios=true;}
   /* Windows goes to the Store: one link for both processors, and no security warning to talk the visitor through. */
@@ -316,7 +316,7 @@
     var n=document.getElementById('cta-note');n.innerHTML='Mac with an Intel chip? <a href="'+base+'Daylo-macos-intel.dmg" data-umami-event="download" data-umami-event-platform="macos-x64">Download this version instead</a>.';n.hidden=false;}
   else if(/Linux/i.test(plat)||/Linux/i.test(ua)){os='linux-deb';label='Download for Linux';href=base+'Daylo-linux-amd64.deb';card='linux';}
   var cta=document.getElementById('cta');
-  if(os){cta.textContent=label;cta.href=href;cta.setAttribute('data-umami-event-platform',os);if(os==='android')cta.setAttribute('download','Daylo-1.4.1.apk');
+  if(os){cta.textContent=label;cta.href=href;cta.setAttribute('data-umami-event-platform',os);if(os==='android')cta.setAttribute('download','Daylo-1.4.2.apk');
     var el=document.querySelector('.plat[data-os="'+card+'"]');if(el)el.classList.add('mine');}
   /* No iPhone build yet. Instead of a dead end, the button measures demand: one click, one event, no data about the visitor. */
   if(ios){cta.textContent='Not on iPhone yet. I want it';cta.href='#want-ios';cta.setAttribute('data-umami-event','want-ios');cta.setAttribute('data-umami-event-platform','ios');
