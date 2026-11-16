@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Daylo Privacy Policy</title>
-<meta name="description" content="Daylo does not collect your data. Everything you enter stays on your device. This page explains what the app stores, the anonymous check-in and the update check it sends unless you turn them off, and how this website is measured.">
+<meta name="description" content="Daylo does not collect your data. Everything you enter stays on your device. This page explains what the app stores, the anonymous check-in that is on in new installations, the update check, how to turn either one off, and how this website is measured.">
 <link rel="canonical" href="https://daylo.henfrydls.com/privacy/">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -60,8 +60,8 @@
   <header class="title">
     <p class="kicker">Privacy</p>
     <h1>Daylo Privacy Policy</h1>
-    <p class="meta">Effective <time datetime="2026-11-12">November 12, 2026</time> · Applies to the Daylo app (Windows, macOS, Linux, Android), the <a href="/demo/">web demo</a>, and this website.</p>
-    <p class="summary"><strong>The short version:</strong> Your data stays on your device. Daylo has no account, and no server stores your habits or the days you marked. Two things make the app talk to the internet on its own, and you can turn off either one: an anonymous daily check-in that tells us the app is still in use, and a check with GitHub for a newer version. Once, after a week, Daylo also asks how it is going, and whatever you answer leaves only because you answered. The app tells you the first time it opens, and the menu turns any of it off at any time. This website uses privacy-respecting, cookieless analytics that never identify you.</p>
+    <p class="meta">Effective <time datetime="PUBLISH_DATE_ISO">PUBLISH_DATE</time> · Applies to the Daylo app (Windows, macOS, Linux, Android), the <a href="/demo/">web demo</a>, and this website.</p>
+    <p class="summary"><strong>The short version:</strong> Your data stays on your device. Daylo has no account, and no server stores your habits or the days you marked. Two things make the app talk to the internet on its own, and you can turn off either one: an anonymous daily check-in that tells us the app is still in use, and a check with GitHub for a newer version. Once, after a week, Daylo also asks how it is going, and whatever you answer leaves only because you answered. On a new installation the check-in is on from the start, and the menu turns any of it off at any time. This website uses privacy-respecting, cookieless analytics that never identify you.</p>
   </header>
 
   <main>
@@ -76,7 +76,7 @@
       <h2 id="h-sends">What the app sends</h2>
       <p><strong>Two things, and each one can be turned off:</strong> a daily check-in to our own server, and a check with GitHub for a newer version. Nothing else. There is no telemetry, no crash reporting, and no third-party SDK inside the app. The part of the app that draws the screen cannot reach any server at all: its security policy allows no connection, and anyone can read that policy in <code>src-tauri/tauri.conf.json</code> in the public code. Both requests are made by the other half of the app, the part written in Rust, and both are a few lines you can read.</p>
       <h3>The anonymous check-in</h3>
-      <p>Daylo sends an anonymous daily check-in. On a new installation it is on from the first time the app opens, and the app says so that first time, with a link to see exactly what is sent and to turn it off. If you installed Daylo before version 1.3.0 and update, it stays off until you turn it on from the app's menu, under Anonymous check-in. Once a day at most, and only on a day you open Daylo, the app sends six things to our own server:</p>
+      <p>Daylo sends an anonymous daily check-in. On a new installation it is on from the first time the app opens. In the app's menu, under Anonymous check-in, you can see exactly what is sent and turn it off. If you installed Daylo before version 1.3.0 and update, it stays off until you turn it on from the app's menu, under Anonymous check-in. Once a day at most, and only on a day you open Daylo, the app sends six things to our own server:</p>
       <ul>
         <li>a random number made on your device when the check-in was turned on. It is derived from nothing about you or your device and is tied to nothing: not your name, not an email, not a phone number.</li>
         <li>the app version, for example 1.3.0</li>
@@ -124,7 +124,7 @@
 
     <section id="downloads" aria-labelledby="h-dl">
       <h2 id="h-dl">Downloads</h2>
-      <p>Release files are hosted on GitHub. When you download from the GitHub Releases page, <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub's privacy statement</a> applies to that request. If Daylo is later available through an app store (Google Play, Microsoft Store, Snap Store), that store's own policy applies to the download and update process; Daylo itself sends nothing unless you turned the check-in on, and then only the six things described above.</p>
+      <p>Release files are hosted on GitHub. When you download from the GitHub Releases page, <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub's privacy statement</a> applies to that request. If Daylo is later available through an app store (Google Play, Microsoft Store, Snap Store), that store's own policy applies to the download and update process; Daylo itself sends only what is described above, and the check-in only while it is on.</p>
     </section>
 
     <section id="children" aria-labelledby="h-kids">
